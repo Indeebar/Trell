@@ -19,7 +19,11 @@ pc = Pinecone(api_key=pinecone_key)
 index = pc.Index("test-index")  # Make sure this matches your actual index name
 
 # Load embedding model (same one you used in notebook)
-embedding_model = SentenceTransformer('sentence-transformers/all-MiniLM-L6-v2')
+embedding_model = SentenceTransformer(
+    'sentence-transformers/all-MiniLM-L6-v2',
+    device='cpu'  # force CPU to avoid meta tensor issue
+)
+
 
 # Load product dataset for metadata fallback (optional)
 products_df = pd.read_csv("pdf/synthetic_retail_data/products.csv")
